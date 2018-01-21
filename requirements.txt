@@ -4,4 +4,4 @@ pycrypto
 Flask-WTF
 Flask-Bcrypt
 Flask-SQLAlchemy
-pycrypto==2.6.1
+pycrypto
