@@ -1,0 +1,11 @@
+# Folders
+*/__pycache__
+/baseapp/static/vendor
+/.vscode/
+
+# Files
+*.py[co]
+.DS_Store
+env
+venv
+*.db

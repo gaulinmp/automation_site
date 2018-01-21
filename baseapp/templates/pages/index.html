@@ -1,0 +1,33 @@
+{% extends "layouts/skeleton.html" %}
+
+{% block navbar %}
+
+    {% for dev,coms in data.devices.items()  %}
+        <a class="nav-item nav-link {% if loop.first %}active{% endif %}"
+            id="nav-tab-{{ dev }}" 
+            data-toggle="tab" 
+            href="#nav-{{ dev }}" 
+            aria-controls="nav-{{ dev }}"
+            aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+            role="tab" >
+            {{ dev }}</a>
+    {% endfor %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="tab-content" id="nav-tabContent">
+
+    {% for dev, coms in data.devices.items()  %}
+    <div class="tab-pane fade show {% if loop.first %}active{% endif %}"
+        id="nav-{{ dev }}" role="tabpanel" aria-labelledby="nav-tab-{{ dev }}">
+        {% for com in coms %}
+            <a href="#" onclick="$.ajax('{{ url_for('send', device=dev, command=com) }}');">{{ com }}</a>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{{ config.SITE_NAME | default("Flask") }}{% endblock %}</title>
+
+<!-- meta -->
+<meta name="description" content="{{ config.SITE_DESCRIPTION | default("") }}">
+<meta name="author" content="{{ config.SITE_AUTHOR | default("") }}">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- /meta -->
+
+<!-- styles -->
+{% if config.USE_CDN %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+{% else %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='vendor/roboto-fontface/css/roboto/roboto-fontface.css') }}" />
+{% endif %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.responsive.css') }}" />
+<!--[if lt IE 9]><script src="{{ url_for('static', filename='vendor/respond/dest/respond.min.js') }}"></script><![endif]-->
+<!-- /styles -->
+
+<!-- favicons -->
+{% include "snippets/favicons.html" %}
+<!-- /favicons -->
+
+<!-- scripts -->
+<script src="{{ url_for('static', filename='js/modernizr-custom-2.8.3.min.js') }}"></script>
+<!-- /scripts -->
+{% block head %}{% endblock head %}
+</head>
+<body>
+
+  <!-- Wrap all page content here -->
+  <div id="wrap">
+
+    <!-- Fixed navbar -->
+    <nav class="nav nav-tabs" id="mainbar" role="tablist">
+      {% block navbar %}{% endblock navbar %}
+    </nav>
+
+    <!-- Begin page content -->
+    <main id="content" role="main" class="container">
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-block alert-warning fade in">
+              <a class="close" data-dismiss="alert">&times;</a>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock content %}
+
+    </main>
+
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <br>
+      <p>{% if config.DEBUG %}<strong>(DEBUG MODE ON)</strong>{% endif %}
+         {{ config.SITE_AUTHOR | default("") }} &copy; All Rights Reserved.</p>
+      {% block footer %}{% endblock %}
+    </div>
+  </div>
+
+{% if config.USE_CDN %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.min.js') }}"><\/script>')</script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.4/js/all.js" defer></script>
+
+{% else %}
+  <script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/popper.js/dist/umd/popper.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endif %}
+  {% if config.GOOGLE_ANALYTICS %}
+  <!-- Google Analytics -->
+  <script>
+  window._gaq = [['_setAccount','{{ config.GOOGLE_ANALYTICS | default("") }}'],['_trackPageview'],['_trackPageLoadTime']];
+  Modernizr.load({
+    load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+  });
+  </script>
+  {% endif %}
+
+  {% block endofpage %}{% endblock endofpage %}
+</body>
+</html>

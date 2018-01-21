@@ -1,0 +1,6 @@
+Flask
+Jinja2
+pycrypto
+Flask-WTF
+Flask-Bcrypt
+Flask-SQLAlchemy
