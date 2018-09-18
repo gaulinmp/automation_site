@@ -2,16 +2,24 @@
 
 {% block navbar %}
 
-    {% for dev,coms in data.devices.items()  %}
-        <a class="nav-item nav-link {% if loop.first %}active{% endif %}"
-            id="nav-tab-{{ dev }}" 
-            data-toggle="tab" 
-            href="#nav-{{ dev }}" 
-            aria-controls="nav-{{ dev }}"
-            aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
-            role="tab" >
-            {{ dev }}</a>
-    {% endfor %}
+  <a class="nav-item nav-link active"
+     href="#nav-main"
+     id="nav-tab-main"
+     data-toggle="tab"
+     aria-controls="nav-main"
+     aria-selected="true"
+     role="tab">Main</a>
+
+  {% for dev,coms in data.devices.items()  %}
+    <a class="nav-item nav-link"
+      id="nav-tab-{{ dev }}" 
+      data-toggle="tab" 
+      href="#nav-{{ dev }}" 
+      aria-controls="nav-{{ dev }}"
+      aria-selected="false"
+      role="tab" >
+      {{ dev }}</a>
+  {% endfor %}
 
 {% endblock navbar %}
 
@@ -19,14 +27,100 @@
 
 <div class="tab-content" id="nav-tabContent">
 
-    {% for dev, coms in data.devices.items()  %}
-    <div class="tab-pane fade show {% if loop.first %}active{% endif %}"
-        id="nav-{{ dev }}" role="tabpanel" aria-labelledby="nav-tab-{{ dev }}">
-        {% for com in coms %}
-            <a href="#" onclick="$.ajax('{{ url_for('send', device=dev, command=com) }}');">{{ com }}</a>
-        {% endfor %}
+  <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-tab-main">
+    <div class='container-flow'>
+      <!-- Row -->
+      <div class='row justify-content-md-center'>
+        <!-- Vizio TV Power -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='vizio-tv', command='power') }}');">
+            <img src="{{ url_for('static', filename='img/new_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Vizio Chromecast -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_sat-catv') }}');">
+            <img src="{{ url_for('static', filename='img/chromecast.svg') }}" alt="Vizio Chromecast" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Vizio TV -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_stb') }}');">
+            <img src="{{ url_for('static', filename='img/computer.svg') }}" alt="Vizio Computer" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Vizio PS4 -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_game') }}');">
+            <img src="{{ url_for('static', filename='img/ps4.svg') }}" alt="Vizio PS4" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Vizio Switch -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_video') }}');">
+            <img src="{{ url_for('static', filename='img/switch.svg') }}" alt="Vizio Switch" class="img-thumbnail" />
+          </a>
+        </div>
+      </div>
+      
+      <!-- Row --> <hr>
+      <div class='row justify-content-md-center'>
+        <!-- Samsung TV Power -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='samsung-tv', command='power') }}');">
+            <img src="{{ url_for('static', filename='img/old_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Samsung Chromecast -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_sat-catv') }}');">
+            <img src="{{ url_for('static', filename='img/chromecast.svg') }}" alt="Samsung Chromecast" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Samsung TV -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_stb') }}');">
+            <img src="{{ url_for('static', filename='img/computer.svg') }}" alt="Samsung Computer" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Samsung PS4 -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone1_game') }}');">
+            <img src="{{ url_for('static', filename='img/ps4.svg') }}" alt="Samsung PS4" class="img-thumbnail" />
+          </a>
+        </div>
+        <!-- Samsung Switch -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone1_video') }}');">
+            <img src="{{ url_for('static', filename='img/switch.svg') }}" alt="Samsung Switch" class="img-thumbnail" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Row --> <hr>
+      <div class='row justify-content-md-center'>
+        <!-- Sony Receiver -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='power') }}');">
+            <img src="{{ url_for('static', filename='img/receiver.jpg') }}" alt="Samsung Power" class="img-thumbnail" />
+          </a>
+        </div>
+      </div>
     </div>
-    {% endfor %}
+  </div>
+
+  {% for dev, coms in data.devices.items()  %}
+  <div class="tab-pane fade show"
+    id="nav-{{ dev }}" role="tabpanel" aria-labelledby="nav-tab-{{ dev }}">
+    <ul>
+      {% for com in coms | sort %}
+        <li>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device=dev, command=com) }}');">{{ com }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
 
 </div>
 
