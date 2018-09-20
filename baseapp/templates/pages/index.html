@@ -37,30 +37,15 @@
             <img src="{{ url_for('static', filename='img/new_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
           </a>
         </div>
-        <!-- Vizio Chromecast -->
+      {% for cmd, img in data.icons %}
+        <!-- Vizio {{ img.split('.')[0] }} -->
         <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_sat-catv') }}');">
-            <img src="{{ url_for('static', filename='img/chromecast.svg') }}" alt="Vizio Chromecast" class="img-thumbnail" />
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_'+cmd) }}');">
+            <img src="{{ url_for('static', filename='img/'+img) }}"
+                 alt="Vizio {{ img.split('.')[0] }}" class="img-thumbnail" />
           </a>
         </div>
-        <!-- Vizio TV -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_stb') }}');">
-            <img src="{{ url_for('static', filename='img/computer.svg') }}" alt="Vizio Computer" class="img-thumbnail" />
-          </a>
-        </div>
-        <!-- Vizio PS4 -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_game') }}');">
-            <img src="{{ url_for('static', filename='img/ps4.svg') }}" alt="Vizio PS4" class="img-thumbnail" />
-          </a>
-        </div>
-        <!-- Vizio Switch -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_video') }}');">
-            <img src="{{ url_for('static', filename='img/switch.svg') }}" alt="Vizio Switch" class="img-thumbnail" />
-          </a>
-        </div>
+      {% endfor %}
       </div>
       
       <!-- Row --> <hr>
@@ -71,30 +56,15 @@
             <img src="{{ url_for('static', filename='img/old_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
           </a>
         </div>
-        <!-- Samsung Chromecast -->
+      {% for cmd, img in data.icons %}
+        <!-- Samsung {{ img.split('.')[0] }} -->
         <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_sat-catv') }}');">
-            <img src="{{ url_for('static', filename='img/chromecast.svg') }}" alt="Samsung Chromecast" class="img-thumbnail" />
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_'+cmd) }}');">
+            <img src="{{ url_for('static', filename='img/'+img) }}"
+                 alt="Samsung {{ img.split('.')[0] }}" class="img-thumbnail" />
           </a>
         </div>
-        <!-- Samsung TV -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_stb') }}');">
-            <img src="{{ url_for('static', filename='img/computer.svg') }}" alt="Samsung Computer" class="img-thumbnail" />
-          </a>
-        </div>
-        <!-- Samsung PS4 -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone1_game') }}');">
-            <img src="{{ url_for('static', filename='img/ps4.svg') }}" alt="Samsung PS4" class="img-thumbnail" />
-          </a>
-        </div>
-        <!-- Samsung Switch -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone1_video') }}');">
-            <img src="{{ url_for('static', filename='img/switch.svg') }}" alt="Samsung Switch" class="img-thumbnail" />
-          </a>
-        </div>
+      {% endfor %}
       </div>
 
       <!-- Row --> <hr>
@@ -105,6 +75,15 @@
             <img src="{{ url_for('static', filename='img/receiver.jpg') }}" alt="Samsung Power" class="img-thumbnail" />
           </a>
         </div>
+      {% for cmd, img in data.icons[:2] %}
+        <!-- Vizio {{ img.split('.')[0] }} -->
+        <div class='col-6 col-sm-4 col-xl-2'>
+          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_'+cmd) }}');">
+            <img src="{{ url_for('static', filename='img/'+img) }}"
+                 alt="Vizio {{ img.split('.')[0] }}" class="img-thumbnail" />
+          </a>
+        </div>
+      {% endfor %}
       </div>
     </div>
   </div>
