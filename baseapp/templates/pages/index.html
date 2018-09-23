@@ -10,7 +10,7 @@
      aria-selected="true"
      role="tab">Main</a>
 
-  {% for dev,coms in data.devices.items()  %}
+  {% for dev,coms in data.all_devices.items()  %}
     <a class="nav-item nav-link"
       id="nav-tab-{{ dev }}" 
       data-toggle="tab" 
@@ -29,66 +29,22 @@
 
   <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-tab-main">
     <div class='container-flow'>
+    {% for device in data.devices %}
       <!-- Row -->
       <div class='row justify-content-md-center'>
-        <!-- Vizio TV Power -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='vizio-tv', command='power') }}');">
-            <img src="{{ url_for('static', filename='img/new_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
-          </a>
-        </div>
-      {% for cmd, img in data.icons %}
-        <!-- Vizio {{ img.split('.')[0] }} -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_'+cmd) }}');">
-            <img src="{{ url_for('static', filename='img/'+img) }}"
-                 alt="Vizio {{ img.split('.')[0] }}" class="img-thumbnail" />
+      {% for dev, cmd, img in device %}
+        <div class='col-4 col-sm-3 col-xl-2'>
+          <a href="#x" onclick="$.ajax('{{ url_for('send', device=dev, command=cmd) }}');">
+            <img src="{{ url_for('static', filename='img/'+img) }}" alt="{{dev}} {{cmd}}" class="img-thumbnail" />
           </a>
         </div>
       {% endfor %}
-      </div>
-      
-      <!-- Row --> <hr>
-      <div class='row justify-content-md-center'>
-        <!-- Samsung TV Power -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='samsung-tv', command='power') }}');">
-            <img src="{{ url_for('static', filename='img/old_tv.svg') }}" alt="Samsung Power" class="img-thumbnail" />
-          </a>
-        </div>
-      {% for cmd, img in data.icons %}
-        <!-- Samsung {{ img.split('.')[0] }} -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='zone2_'+cmd) }}');">
-            <img src="{{ url_for('static', filename='img/'+img) }}"
-                 alt="Samsung {{ img.split('.')[0] }}" class="img-thumbnail" />
-          </a>
-        </div>
-      {% endfor %}
-      </div>
-
-      <!-- Row --> <hr>
-      <div class='row justify-content-md-center'>
-        <!-- Sony Receiver -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='power') }}');">
-            <img src="{{ url_for('static', filename='img/receiver.jpg') }}" alt="Samsung Power" class="img-thumbnail" />
-          </a>
-        </div>
-      {% for cmd, img in data.icons[:2] %}
-        <!-- Vizio {{ img.split('.')[0] }} -->
-        <div class='col-6 col-sm-4 col-xl-2'>
-          <a href="#" onclick="$.ajax('{{ url_for('send', device='sony-receiver', command='main_'+cmd) }}');">
-            <img src="{{ url_for('static', filename='img/'+img) }}"
-                 alt="Vizio {{ img.split('.')[0] }}" class="img-thumbnail" />
-          </a>
-        </div>
-      {% endfor %}
-      </div>
+      </div> <hr>
+    {% endfor %}
     </div>
   </div>
 
-  {% for dev, coms in data.devices.items()  %}
+  {% for dev, coms in data.all_devices.items()  %}
   <div class="tab-pane fade show"
     id="nav-{{ dev }}" role="tabpanel" aria-labelledby="nav-tab-{{ dev }}">
     <ul>
