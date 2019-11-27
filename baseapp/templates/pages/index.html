@@ -31,11 +31,11 @@
     <div class='container-flow'>
     {% for device in data.devices %}
       <!-- Row -->
-      <div class='row justify-content-md-center'>
+      <div class='row justify-content-center'>
       {% for dev, cmd, img in device %}
         <div class='col-4 col-sm-3 col-xl-2'>
           <a href="#x" onclick="$.ajax('{{ url_for('send', device=dev, command=cmd) }}');">
-            <img src="{{ url_for('static', filename='img/'+img) }}" alt="{{dev}} {{cmd}}" class="img-thumbnail" />
+            <img src="{{ url_for('static', filename='img/'+img) }}" alt="{{dev}} {{cmd}}" class="img-thumbnail" style="min-width: 100px;" />
           </a>
         </div>
       {% endfor %}
